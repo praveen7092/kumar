@@ -18,13 +18,12 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
-steps:
 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
   displayName: 'Use Terraform latest'
 
 #Your build pipeline references an undefined variable named ‘tfstateFile’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
 
-steps:
+
 - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV2@2
   displayName: 'Terraform : init'
   inputs:
@@ -35,14 +34,12 @@ steps:
     backendAzureRmKey: '$(tfstateFile)'
 
 
-steps:
 - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV2@2
   displayName: 'Terraform : plan'
   inputs:
     command: plan
     environmentServiceNameAzureRM: 'Free Trial (3c8deffd-e61e-4cf4-a054-0414465da130)'
 
-steps:
 - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV2@2
   displayName: 'Terraform : apply'
   inputs:
