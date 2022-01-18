@@ -20,7 +20,7 @@ resource "azurerm_subnet" "sn" {
   address_prefixes = ["10.0.1.0/24"]
 }
 resource "azurerm_public_ip" "pb" {
-    name="pip"
+    name="pip01"
     location = "east us"
     resource_group_name = azurerm_resource_group.rg.name
     allocation_method = "Dynamic"
@@ -35,7 +35,7 @@ resource   "azurerm_network_interface"   "nic"   {
      name   =   "ipconfig1" 
      subnet_id   =   azurerm_subnet.sn.id 
      private_ip_address_allocation   =   "Dynamic" 
-     public_ip_address_id   =azurerm_public_ip.pb.name 
+     //public_ip_address_id   =azurerm_public_ip.pb.name
    } 
  }
 
