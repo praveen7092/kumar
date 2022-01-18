@@ -18,28 +18,32 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
-- task: TerraformInstaller@0
-  inputs:
-    terraformVersion: 'latest'
+steps:
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+  displayName: 'Use Terraform latest'
 
-- task: TerraformTaskV2@2
+#Your build pipeline references an undefined variable named ‘tfstateFile’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+
+steps:
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV2@2
+  displayName: 'Terraform : init'
   inputs:
-    provider: 'azurerm'
-    command: 'init'
     backendServiceArm: 'Free Trial (3c8deffd-e61e-4cf4-a054-0414465da130)'
-    backendAzureRmResourceGroupName: 'kumar'
-    backendAzureRmStorageAccountName: 'strdemo'
-    backendAzureRmContainerName: 'terraform'
+    backendAzureRmResourceGroupName: kumar
+    backendAzureRmStorageAccountName: strdemo
+    backendAzureRmContainerName: terraform
     backendAzureRmKey: '$(tfstateFile)'
 
-- task: TerraformTaskV2@2
+steps:
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV2@2
+  displayName: 'Terraform : plan'
   inputs:
-    provider: 'azurerm'
-    command: 'plan'
+    command: plan
     environmentServiceNameAzureRM: 'Free Trial (3c8deffd-e61e-4cf4-a054-0414465da130)'
 
-- task: TerraformTaskV2@2
+steps:
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV2@2
+  displayName: 'Terraform : apply'
   inputs:
-    provider: 'azurerm'
-    command: 'apply'
+    command: apply
     environmentServiceNameAzureRM: 'Free Trial (3c8deffd-e61e-4cf4-a054-0414465da130)'
